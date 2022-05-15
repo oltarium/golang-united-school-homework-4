@@ -41,8 +41,8 @@ func StringSum(input string) (output string, err error) {
 	var currentNumber string
 	for i := 0; i < len(input); i++ {
 		char := string(input[i])
-		if char != " " && char != "-" && char != "+" && !strings.ContainsAny(numbers, char) {
-			return "", fmt.Errorf("%s", "Invalid characters")
+		if char == " " {
+			continue
 		}
 		if (char == "-" || char == "+") && len(currentNumber) >= 1 {
 			nums = append(nums, currentNumber)
@@ -53,26 +53,23 @@ func StringSum(input string) (output string, err error) {
 			currentNumber = char
 			continue
 		}
-		if strings.ContainsAny(numbers, char) {
-			currentNumber += char
-		}
+		currentNumber += char
 	}
 	if len(nums) == 0 {
-		return "", fmt.Errorf("%s", errorEmptyInput)
+		return "", fmt.Errorf("%v", errorEmptyInput)
 	}
 	nums = append(nums, currentNumber)
 	if len(nums) != 2 {
-		return "", fmt.Errorf("%s", errorNotTwoOperands)
+		return "", fmt.Errorf("%v", errorNotTwoOperands)
 	}
 	firstNumber, err := strconv.Atoi(nums[0])
 	if err != nil {
-		return "", fmt.Errorf("%s", "Invalid number")
+		return "", fmt.Errorf("%v", err)
 	}
 	secondNumber, err := strconv.Atoi(nums[1])
 	if err != nil {
-		return "", fmt.Errorf("%s", "Invalid number")
+		return "", fmt.Errorf("%v", err)
 	}
 	result := firstNumber + secondNumber
-	output = strconv.Itoa(result)
-	return
+	return strconv.Itoa(result), nil
 }

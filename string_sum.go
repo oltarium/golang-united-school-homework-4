@@ -2,6 +2,7 @@ package string_sum
 
 import (
 	"errors"
+	"fmt"
 	"strconv"
 )
 
@@ -53,19 +54,19 @@ func StringSum(input string) (output string, err error) {
 		currentNumber += char
 	}
 	if len(nums) == 0 {
-		return "", errorEmptyInput
+		return "", fmt.Errorf("%v", errorEmptyInput.Error())
 	}
 	nums = append(nums, currentNumber)
 	if len(nums) != 2 {
-		return "", errorNotTwoOperands
+		return "", fmt.Errorf("%v", errorNotTwoOperands.Error())
 	}
 	firstNumber, err := strconv.Atoi(nums[0])
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("%v", err.Error())
 	}
 	secondNumber, err := strconv.Atoi(nums[1])
 	if err != nil {
-		return "", err
+		return "", fmt.Errorf("%v", err.Error())
 	}
 	result := firstNumber + secondNumber
 	return strconv.Itoa(result), nil

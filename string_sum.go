@@ -2,7 +2,6 @@ package string_sum
 
 import (
 	"errors"
-	"fmt"
 	"strconv"
 )
 
@@ -35,7 +34,6 @@ var (
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 // [-, 300, +, 5]
 func StringSum(input string) (output string, err error) {
-	const numbers = "0123456789"
 	var nums []string
 	var currentNumber string
 	for i := 0; i < len(input); i++ {
@@ -55,19 +53,19 @@ func StringSum(input string) (output string, err error) {
 		currentNumber += char
 	}
 	if len(nums) == 0 {
-		return "", fmt.Errorf("%v", errorEmptyInput)
+		return "", errorEmptyInput
 	}
 	nums = append(nums, currentNumber)
 	if len(nums) != 2 {
-		return "", fmt.Errorf("%v", errorNotTwoOperands)
+		return "", errorNotTwoOperands
 	}
 	firstNumber, err := strconv.Atoi(nums[0])
 	if err != nil {
-		return "", fmt.Errorf("%v", err)
+		return "", err
 	}
 	secondNumber, err := strconv.Atoi(nums[1])
 	if err != nil {
-		return "", fmt.Errorf("%v", err)
+		return "", err
 	}
 	result := firstNumber + secondNumber
 	return strconv.Itoa(result), nil

@@ -4,6 +4,7 @@ import (
 	"errors"
 	"fmt"
 	"strconv"
+	"strings"
 )
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
@@ -34,29 +35,32 @@ var (
 //
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 // [-, 300, +, 5]
-func StringSum(input string) (output string, err error) {
+func StringSum1(input string) (output string, err error) {
+	if len(strings.Trim(input, " ")) == 0 {
+		return "", fmt.Errorf("%w", errorEmptyInput)
+	}
+
 	var nums []string
 	var currentNumber string
+	var sign string
+
 	for i := 0; i < len(input); i++ {
 		char := string(input[i])
 		if char == " " {
 			continue
 		}
-		if (char == "-" || char == "+") && len(currentNumber) >= 1 {
-			nums = append(nums, currentNumber)
-			currentNumber = char
-			continue
-		}
-		if char == "-" || char == "=" {
-			currentNumber = char
+
+		if char == "-" || char == "+" {
+			if len(currentNumber) >= 1 {
+				nums = append(nums, sign+currentNumber)
+			}
+			sign = char
+			currentNumber = ""
 			continue
 		}
 		currentNumber += char
 	}
-	if len(nums) == 0 {
-		return "", fmt.Errorf("%w", errorEmptyInput)
-	}
-	nums = append(nums, currentNumber)
+	nums = append(nums, sign+currentNumber)
 	if len(nums) != 2 {
 		return "", fmt.Errorf("%w", errorNotTwoOperands)
 	}

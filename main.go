@@ -1,4 +1,4 @@
-package string_sum
+package main
 
 import (
 	"errors"
@@ -6,6 +6,15 @@ import (
 	"strconv"
 	"strings"
 )
+
+func main() {
+	res, err := StringSum("5  + 1")
+	println(res)
+	if err != nil {
+		println(err.Error())
+	}
+
+}
 
 //use these errors as appropriate, wrapping them with fmt.Errorf function
 var (
@@ -15,26 +24,7 @@ var (
 	errorNotTwoOperands = errors.New("expecting two operands, but received more or less")
 )
 
-// Implement a function that computes the sum of two int numbers written as a string
-// For example, having an input string "3+5", it should return output string "8" and nil error
-// Consider cases, when operands are negative ("-3+5" or "-3-5") and when input string contains whitespace (" 3 + 5 ")
-//
-//For the cases, when the input expression is not valid(contains characters, that are not numbers, +, - or whitespace)
-// the function should return an empty string and an appropriate error from strconv package wrapped into your own error
-// with fmt.Errorf function
-//
-// Use the errors defined above as described, again wrapping into fmt.Errorf
-
-// Implement a function that computes the sum of two int numbers written as a string
-// For example, having an input string "3+5", it should return output string "8" and nil error
-// Consider cases, when operands are negative ("-3+5" or "-3-5") and when input string contains whitespace (" 3 + 5 ")
-//
-//For the cases, when the input expression is not valid(contains characters, that are not numbers, +, - or whitespace)
-// the function should return an empty string and an appropriate error from strconv package wrapped into your own error
-// with fmt.Errorf function
-//
-// Use the errors defined above as described, again wrapping into fmt.Errorf
-// [-, 300, +, 5]
+// +3 + 5
 func StringSum(input string) (output string, err error) {
 	if len(strings.Trim(input, " ")) == 0 {
 		return "", fmt.Errorf("%w", errorEmptyInput)

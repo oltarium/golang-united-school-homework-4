@@ -35,7 +35,7 @@ var (
 //
 // Use the errors defined above as described, again wrapping into fmt.Errorf
 // [-, 300, +, 5]
-func StringSum1(input string) (output string, err error) {
+func StringSum(input string) (output string, err error) {
 	if len(strings.Trim(input, " ")) == 0 {
 		return "", fmt.Errorf("%w", errorEmptyInput)
 	}
